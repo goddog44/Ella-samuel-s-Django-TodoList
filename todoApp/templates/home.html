@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+  <a href="{% url 'create_tag' %}">Create New Tag</a></button>
+{% block content %}
+  <h1>Your To-Do List</h1>
+
+  {% if tasks %}
+    <ul>
+      {% for task in tasks %}
+        <li>
+          <h2>{{ task.title }}</h2>
+          <h3>{{task.description}}</h3>
+          <h3>{{task.due_date}}</h3>
+          <h3>{{task.status}}</h3>
+          <h3>{{task.created_at}}</h3>
+          <button type="button"><a href="{% url 'update_task' task.id %}">Update</a></button>
+          <button type="button"><a href="{% url 'delete_task' task.id %}">Delete</a></button>
+          <button type="button"><a href="{% url 'complete_task' task.id %}"></a></button>
+          
+          {% if task.status == 'completed' %}
+            <span style="color: green;">(Completed)</span>
+          {% endif %}
+          
+
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No tasks yet. Create one!</p>
+  {% endif %}
+
+    <button type="button"> <a href="{% url 'create_task' %}">Create New Task</a><br></button><br><br>
+    <button type="button">   <a href="{% url 'create_tag' %}">Create New Tag</a></button>
+
+  <h2>Your Tags</h2>
+  {% csrf_token %}
+  {% for tag in tags %}
+  <ul><li>
+    <a href="">Add {{ tag.tag_name }} to task</a><br>
+    <a href="">Remove {{ tag.tag_name }} from task</a><br>
+  </li></ul>
+  {% endfor %}
+{% endblock %}

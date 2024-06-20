@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>To-Do List</title>
+</head>
+<body>
+  {% if user.is_authenticated %}
+  <p>Welcome, {{ user.username }}!<button type="button"><a href="{% url 'logout' %}">Logout</a></button></p>
+  {% else %}
+    <p><a href="{% url 'login' %}">Login</a> or <a href="{% url 'register' %}">Register</a></p>
+  {% endif %}
+  {% block content %}
+  {% endblock %}
+</body>
+</html>
